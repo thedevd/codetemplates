@@ -7,9 +7,10 @@ This example illustrates the way how can Springboot security BcryptPasswordEncod
 3. Embedded H2 database (I have enabled this by adding H2 along with jpa dependency in pom.xml)
 
 We have basically two important rest endpoints in the application ( com.dev.bcryptpasswordencoder.controller.BcryptController.java )
-1. /bcrypt/add --> This endpoint is responsible for taking user's email and password from the registration form of UI and storing the user in the DATABASE. (Password is stored in the form of hash using Spring BcryptPasswordEncoder)
-2. /bcrypt/verify --> This endpoint is reponsible for verifying user's password submiited by user from the login form of UI.
+1. **/bcrypt/add** --> This endpoint is responsible for taking user's email and password from the registration form of UI and storing the user in the DATABASE. (Password is stored in the form of hash using Spring BcryptPasswordEncoder)
+2. **/bcrypt/verify** --> This endpoint is reponsible for verifying user's password submiited by user from the login form of UI.
 
+BcryptController.java 
 ```java
 package com.dev.bcryptpasswordencoder.controller;
 
@@ -101,16 +102,16 @@ public class UserService {
 		return message;
 	}
 	
-}#
+}
 
 ```
 
 
 Two keypoints to note here 
- 1. BcryptPasswordEncoder's encode(charSequence arg0) is used to generate salt based 128bit hash string (See addUser() endpoint)
- 2. BcryptPasswordEncoder's matches(charSequence agr0, String hashedPassword) is used to match the supplied String password with stored hashed password.
+ 1. **BcryptPasswordEncoder's encode(charSequence arg0)** is used to generate salt based 128bit hash string (See addUser() endpoint)
+ 2. **BcryptPasswordEncoder's matches(charSequence agr0, String hashedPassword)** is used to match the supplied String password with stored hashed password.
 
-How to run -
+## How to run -
 1. Just import this maven project in eclipse. This spring boot application is configured to run on port 8090 (see server.port in application.properties) 
 2. I have given two addition sql files in the resources directory - schema.sql and data.sql. (also note I have disabled spring boot auto ddl creation by spring.jpa.hibernate.ddl-auto=none property because I want to tell spring to generate database schema and populate the table with some dummy data as per my requirement at the time of startup using schema.sql and data.sql files respectively). 
 After startup, the table 'USER' will have one default entry with userEmail as 'admin@gmail.com' and userPassword as '@dmin'. So you can use this to directly verify the credential for admin user. (This is just for demo purpose, eventhough you can add as many users from UI)
@@ -121,6 +122,6 @@ http://localhost:8090/bcrypt/index    (Change the port as per application.proper
 4. You will see two forms --> SignUp form and Login form. Use Sign up form to add a user to Database and then use the LoginForm to validate the same user's credentials.
 
 
-Conclusion -
+## Conclusion -
 1. Using SignUp form, user is added to database with his/her password stored as one-way-hash.
 2. Using Login form, user's password is validated against stored password which is a 128bit salt string.
