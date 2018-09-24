@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 	// api to verify user
-	$(document).on('submit', '#bcrptVerifyForm', function(e) {
+	$(document).on('submit', '#loginForm', function(e) {
 		var user = {};
 		user["userEmail"] = $("#email-verify").val();
 		user["userPassword"] = $("#password-verify").val();
@@ -22,8 +22,8 @@ $(document).ready(function() {
 	});
 	
 	
-	// api to verify user
-	$(document).on('submit', '#bcrptAddForm', function(e) {
+	// api to add user
+	$(document).on('submit', '#signupForm', function(e) {
 		var user = {};
 		user["userEmail"] = $("#email-add").val();
 		user["userPassword"] = $("#password-add").val();
