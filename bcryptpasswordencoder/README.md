@@ -1,5 +1,5 @@
 
-This example illustrates the way how can Springboot security BcryptPasswordEncoder class be used to store one way hashed password (using salt - a random data) in the Database and then use the stored hashed password later to authenticate the user using form based authentication via UI.
+This example illustrates the way how can Springboot security BcryptPasswordEncoder class be used to generate and store one way hashed password (using salt - a random data) in the Database and then use the stored hashed password later to authenticate the user using form based authentication via UI.
 
 Components - 
 1. A simple Bootstrap based GUI for --> asking user to first register using emailAddress and password and verifying user's credential especially the password.
