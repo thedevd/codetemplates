@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.dev.bcryptpasswordencoder.pojo.User;
 
 @Repository
-public interface DBRepository extends CrudRepository<User, String> {
+public interface UserRepository extends CrudRepository<User, String> {
 
 }
