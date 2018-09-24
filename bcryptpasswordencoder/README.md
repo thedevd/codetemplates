@@ -4,6 +4,7 @@ This example illustrates the way how can Springboot security BcryptPasswordEncod
 Components - 
 1. A simple Bootstrap based GUI for --> asking user to first register using emailAddress and password and verifying user's credential especially the password.
 2. SpringSecutrity backend for --> storing user's password in emebedded H2 database as one way hashed string using BcryptPasswordEncoder API and verifying the same when user tries to log into application. 
+3. Embedded H2 database (I have enabled this by adding H2 along with jpa dependency in pom.xml)
 
 We have basically two important rest endpoints in the application ( com.dev.bcryptpasswordencoder.controller.BcryptController.java )
 1. /bcrypt/add --> This endpoint is responsible for taking user's email and password from the registration form of UI and storing the user in the DATABASE. (Password is stored in the form of hash using Spring BcryptPasswordEncoder)
