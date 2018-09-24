@@ -10,69 +10,97 @@ We have basically two important rest endpoints in the application ( com.dev.bcry
 1. /bcrypt/add --> This endpoint is responsible for taking user's email and password from the registration form of UI and storing the user in the DATABASE. (Password is stored in the form of hash using Spring BcryptPasswordEncoder)
 2. /bcrypt/verify --> This endpoint is reponsible for verifying user's password submiited by user from the login form of UI.
 
- 
+		package com.dev.bcryptpasswordencoder.controller;
 
 		import org.springframework.beans.factory.annotation.Autowired;
-		import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-		import org.springframework.security.crypto.password.PasswordEncoder;
 		import org.springframework.web.bind.annotation.PostMapping;
 		import org.springframework.web.bind.annotation.RequestBody;
 		import org.springframework.web.bind.annotation.RequestMapping;
 		import org.springframework.web.bind.annotation.RestController;
 
 		import com.dev.bcryptpasswordencoder.pojo.User;
-		import com.dev.bcryptpasswordencoder.repository.DBRepository;
+		import com.dev.bcryptpasswordencoder.service.UserService;
 
 		@RestController
 		@RequestMapping("/bcrypt")
 		public class BcryptController {
 
 			@Autowired
-			DBRepository repository;
-			
-			PasswordEncoder encoder = new BCryptPasswordEncoder();
+			UserService userService;
 			
 			@PostMapping("/add")
 			public String addUser(@RequestBody User user)
 			{
-				Optional<User> authenticatedUser = repository.findById(user.getUserEmail());
-				if(authenticatedUser.isPresent())
-				{
-					return "User with email: " + user.getUserEmail() + " already exist";
-				}
-				String bcryptedPassword = encoder.encode(user.getUserPassword());
-				user.setUserPassword(bcryptedPassword);
-				repository.save(user);
-				return "User: " + user.getUserEmail() + " is added";
+				return userService.addUser(user);
 			}
 			
 			@PostMapping("/verify")
 			public String verifyUser(@RequestBody User user)
 			{
-				String message;
-				Optional<User> authenticatedUser = repository.findById(user.getUserEmail());
-				if(authenticatedUser.isPresent())
-				{
-					boolean isPasswordMatched = encoder.matches(user.getUserPassword(), 
-                               authenticatedUser.get().getUserPassword());
-					if(isPasswordMatched)
-					{
-						message = "Password matches";
-					}
-					else
-					{
-						message = "Password incorrect";
-					}
-				}
-				else
-				{
-					message = "userName does not exist";
-				}
-				return message;
+				return userService.verifyUser(user);
 			}
 			
 		}
+		
+		
+UserService.java
 
+			import java.util.Optional;
+
+			import org.springframework.beans.factory.annotation.Autowired;
+			import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+			import org.springframework.security.crypto.password.PasswordEncoder;
+			import org.springframework.stereotype.Service;
+
+			import com.dev.bcryptpasswordencoder.pojo.User;
+			import com.dev.bcryptpasswordencoder.repository.UserRepository;
+
+			@Service
+			public class UserService {
+				
+				@Autowired
+				UserRepository repository;
+				
+				PasswordEncoder encoder = new BCryptPasswordEncoder();
+				
+				public String addUser( User user)
+				{
+					Optional<User> authenticatedUser = repository.findById(user.getUserEmail());
+					if(authenticatedUser.isPresent())
+					{
+						return "User with email: " + user.getUserEmail() + " already exist";
+					}
+					
+					String bcryptedPassword = encoder.encode(user.getUserPassword());
+					user.setUserPassword(bcryptedPassword);
+					repository.save(user);
+					return "User: " + user.getUserEmail() + " is added";
+				}
+				
+				public String verifyUser( User user)
+				{
+					String message;
+					Optional<User> authenticatedUser = repository.findById(user.getUserEmail());
+					if(authenticatedUser.isPresent())
+					{
+						boolean isPasswordMatched = encoder.matches(user.getUserPassword(), authenticatedUser.get().getUserPassword());
+						if(isPasswordMatched)
+						{
+							message = "Password matches";
+						}
+						else
+						{
+							message = "Password incorrect";
+						}
+					}
+					else
+					{
+						message = "userName does not exist";
+					}
+					return message;
+				}
+				
+			}
 
 Two keypoints to note here 
  1. BcryptPasswordEncoder's encode(charSequence arg0) is used to generate salt based 128bit hash string (See addUser() endpoint)
