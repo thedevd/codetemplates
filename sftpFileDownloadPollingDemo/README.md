@@ -38,3 +38,5 @@ Description of the classes used in the demo -
 2. **SftpDownloadJob.java** - This is actual quartz Job which needs to be invoked periodically. (The job of this class is - connecting to sftp server and download the specified file and at last release the conneciton)
 3. **SftpDownloadCronTrigger.java** - This class is responsible to schedule a quartz scheduler to perform the required job which is specified in **SftpDownloadJob.java**
 4. **SftpDownloadLauncher.java** - This is extra class whose task is to actually launch SftpDownloadCronTrigger to start quartz scheduler **SftpDownloadCronTrigger.java** 
+
+So according to application.properties, after every 5 min the application is going to connect the server and download the file to local directory.
