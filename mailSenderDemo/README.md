@@ -32,7 +32,7 @@ By default ssl is enabled in SMTP server. You can disable it by marking it false
 
 * **Lets see the details of the classed used in the demo-**
 1. [MailConfig.java](https://github.com/thedevd/codetemplates/blob/master/mailSenderDemo/src/main/java/com/dev/mailSenderDemo/configuration/MailConfig.java) - This Configuration class binds the properties defined in application.properties. And these properties are then used to initialize our JavaMailSender bean.
-```
+```java
 /*
  * JavaMailSender configuration.
  */
@@ -51,7 +51,7 @@ By default ssl is enabled in SMTP server. You can disable it by marking it false
 	}
   ```
   2. [MailSenderService.java](https://github.com/thedevd/codetemplates/blob/master/mailSenderDemo/src/main/java/com/dev/mailSenderDemo/service/MailSenderService.java) - This @Service class is reposible to actually send the mail using JavaMailSender bean to specified recipient.
-  ```
+  ```java
 package com.dev.mailSenderDemo.service;
 
 import javax.mail.internet.MimeMessage;
