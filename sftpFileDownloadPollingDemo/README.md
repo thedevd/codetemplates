@@ -1,5 +1,5 @@
 ### There was a requirement I encountered where I needed to download a jar file from SFTP location peridically to fetch always upto date jar and store it somewhere in my local machine.
-So I have created a sample demo to demonstrate that scenario.
+So I have created a sample demo to demonstrate that scenario. (Although spring has something called sprint-boot-sftp-integration, but I have created my own utility)
 
 External libraries I used here are (Please refer POM.xml) -
 1. **Quartz Scheduler** - This is used to schedule the polling/download job at specified time interval, like periodically download the file for every 5 minute.\
