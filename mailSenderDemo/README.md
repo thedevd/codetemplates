@@ -114,7 +114,7 @@ public class MailSenderService {
   
   * **How to run the demo-**
   1. First provide correct details of SMPT server in [application.properties](https://github.com/thedevd/codetemplates/blob/master/mailSenderDemo/src/main/resources/application.properties).
-  2. Run the mail class [MailSenderDemoApplication.java](https://github.com/thedevd/codetemplates/blob/master/mailSenderDemo/src/main/java/com/dev/mailSenderDemo/MailSenderDemoApplication.java) as java application.
+  2. Run the main class [MailSenderDemoApplication.java](https://github.com/thedevd/codetemplates/blob/master/mailSenderDemo/src/main/java/com/dev/mailSenderDemo/MailSenderDemoApplication.java) as java application.
   3. Hit the http://localhost:8090/javamailservice/index on browser.
   4. Provide the recipient email id (Use your own email Id for testing purpose) and email's subject line plus body. And submit the form.
   5. Check if you recieved email. (you should recieve if everything goes well)
